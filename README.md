@@ -17,9 +17,9 @@
 allows all of the RGB LEDs to be set to a colour
 
 #### Happy path:
-input: curl -X POST -H "Content-Type: application/json" -d '{"rgb": [140, 20, 180]}' http://IP:PORT/set_all
-resp: {"success":true}
+input: curl -X POST -H "Content-Type: application/json" -d '{"rgb": [140, 20, 180]}' http://IP:PORT/set_all  
+resp: {"success":true}  
 
 #### Sadness (invalid input value provided):
-input: curl -X POST -H "Content-Type: application/json" -d '{"rgb": [100, 20, 300]}' http://IP:PORT/set_all
-resp: {"error":"byte must be in range(0, 256)","success":false}
+input: curl -X POST -H "Content-Type: application/json" -d '{"rgb": [100, 20, 300]}' http://IP:PORT/set_all  
+resp: {"error":"byte must be in range(0, 256)","success":false}  
