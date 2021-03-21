@@ -4,16 +4,14 @@
 - Flask interface for controlling Neopixels on RPI
 - Flask interface for LDR (sub module project, used to control LEDs based on light readings)
 
-
-## Due to limitations of using Neopixels and an RPI, the flask app must be ran as ROOT
-### More info can be found here: https://learn.adafruit.com/neopixels-on-raspberry-pi/python-usage
-
+### Due to limitations of using Neopixels and an RPI, the flask app must be ran as ROOT
+More info can be found here: https://learn.adafruit.com/neopixels-on-raspberry-pi/python-usage
 ### Additional note, it is stated in the above link, but please be aware of the following other RPI limiation:
 ----- NeoPixels must be connected to D10, D12, D18 or D21 to work (i.e board.DXX) -----
 
 ## Example usage:
 
-### set_all
+### /set_all
 allows all of the RGB LEDs to be set to a colour
 
 #### Happy path:
