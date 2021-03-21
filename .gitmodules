@@ -1,0 +1,3 @@
+[submodule "flask_ldr"]
+	path = flask_ldr
+	url = https://github.com/jumbobumbo/flask_ldr.git
