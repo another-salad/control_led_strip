@@ -21,3 +21,8 @@ resp: {"success":true}
 #### Sadness (invalid input value provided):
 input: curl -X POST -H "Content-Type: application/json" -d '{"rgb": [100, 20, 300]}' http://IP:PORT/set_all  
 resp: {"error":"byte must be in range(0, 256)","success":false}  
+
+# Controlling when the LED strips turn off/on with docker
+## submodule: neo_ctrl_docker
+
+- more info coming....
