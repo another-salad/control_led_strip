@@ -1,3 +1,6 @@
 [submodule "flask_ldr"]
 	path = flask_ldr
 	url = https://github.com/jumbobumbo/flask_ldr.git
+[submodule "neo_ctrl_docker"]
+	path = neo_ctrl_docker
+	url = https://github.com/jumbobumbo/neo_ctrl_docker.git
