@@ -17,6 +17,9 @@ ORDER = neopixel.GRB
 BRIGHTNESS = 0.8
 AUTO_WRITE = False
 
+# NeoPixel Connection object var
+NEO = None
+
 # OTHER DEFAULTS
 BRIGHTNESS_KEY = "brightness"
 
@@ -37,10 +40,8 @@ def _post_data() -> dict:
 
 
 def _create_neo_pixel(brightness: float) -> object:
-    """Due to the below constraints of the NeoPixel implementation, a with block/constant are not possible:
-
-      - When the with block is exited, the NeoPixel object is deleted, setting the lighs to 0 (off)
-      - The brightness level is set when creating the object, this needs to remain customisable via flask
+    """
+    Creates the Neo pixel object and returns it
 
     Args:
         brightness (float): 0 - 1.0
@@ -81,9 +82,9 @@ def set_all() -> str:
 
     try:
 
-        neo = _create_neo_pixel(post_data[BRIGHTNESS_KEY])  # neo object
-        neo.fill(post_data["rgb"])
-        neo.show()
+        NEO.brightness = post_data[BRIGHTNESS_KEY]
+        NEO.fill(post_data["rgb"])
+        NEO.show()
         return_resp["success"] = True
 
     except Exception as ex:
@@ -94,4 +95,5 @@ def set_all() -> str:
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8082, debug=False)
+    with _create_neo_pixel(0) as NEO:
+    	app.run(host="0.0.0.0", port=8082, debug=False)
