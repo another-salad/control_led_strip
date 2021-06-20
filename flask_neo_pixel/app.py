@@ -1,29 +1,14 @@
-import board
-
-import neopixel
-
-from pathlib import Path
-
-from collections import namedtuple
+"""The main flask app"""
 
 from flask import Flask, jsonify, request
 from flask_expects_json import expects_json
 
+from flask_neo_pixel import BRIGHTNESS_KEY
+from neo_pixel.neo import create_neo_pixel
 
-# NeoPixel config
-PX_PIN = board.D18
-NUM_PX = 30
-ORDER = neopixel.GRB
-BRIGHTNESS = 0.8
-AUTO_WRITE = False
 
-# NeoPixel Connection object var
-NEO = None
-
-# OTHER DEFAULTS
-BRIGHTNESS_KEY = "brightness"
-
-app = Flask(__name__, static_url_path="") # flask object
+app = Flask(__name__, static_url_path="") # Flask app
+neo = None  # Neo pixel connection var
 
 
 def _post_data() -> dict:
@@ -32,24 +17,18 @@ def _post_data() -> dict:
     Returns:
         dict: The POST data
     """
+    default_brightness = 0.8
     post_data = request.get_json()
     if BRIGHTNESS_KEY not in post_data.keys():
-        post_data[BRIGHTNESS_KEY] = BRIGHTNESS
+        post_data[BRIGHTNESS_KEY] = default_brightness
 
     return post_data
 
 
-def _create_neo_pixel(brightness: float) -> object:
-    """
-    Creates the Neo pixel object and returns it
-
-    Args:
-        brightness (float): 0 - 1.0
-
-    Returns:
-        object: The NeoPixel object
-    """
-    return neopixel.NeoPixel(PX_PIN, NUM_PX, auto_write=AUTO_WRITE, pixel_order=ORDER, brightness=brightness)
+@app.route("/test", methods=["GET"])
+def test_page() -> str:
+    """Test page for the system"""
+    return "<h1>NEO PIXEL INTERFACE TEST PAGE</h1>"
 
 
 @app.route("/set_px", methods=["POST"])
@@ -78,13 +57,13 @@ def set_all() -> str:
         str: json string
     """
     return_resp = {}
-    post_data = _post_data()
 
     try:
 
-        NEO.brightness = post_data[BRIGHTNESS_KEY]
-        NEO.fill(post_data["rgb"])
-        NEO.show()
+        post_data = _post_data()
+        neo.brightness = post_data[BRIGHTNESS_KEY]
+        neo.fill(post_data["rgb"])
+        neo.show()
         return_resp["success"] = True
 
     except Exception as ex:
@@ -95,5 +74,5 @@ def set_all() -> str:
 
 
 if __name__ == "__main__":
-    with _create_neo_pixel(0) as NEO:
+    with create_neo_pixel() as neo:
     	app.run(host="0.0.0.0", port=8082, debug=False)
