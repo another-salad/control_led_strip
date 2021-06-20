@@ -1,3 +1,1 @@
-"""Constants"""
-
-BRIGHTNESS_KEY = "brightness"
+"""init"""

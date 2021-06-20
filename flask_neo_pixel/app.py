@@ -3,12 +3,13 @@
 from flask import Flask, jsonify, request
 from flask_expects_json import expects_json
 
-from flask_neo_pixel import BRIGHTNESS_KEY
 from neo_pixel.neo import create_neo_pixel
 
 
 app = Flask(__name__, static_url_path="") # Flask app
 neo = None  # Neo pixel connection var
+
+BRIGHTNESS_KEY = "brightness"
 
 
 def _post_data() -> dict:
