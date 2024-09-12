@@ -113,6 +113,21 @@ def set_all(request):
     resp = _set_pixels(req)
     return ("200 OK", [], [json.dumps(resp)])
 
+@web_app.route("/api/day", methods=["GET"])
+def day(_):
+    resp = _set_pixels({"rgb": [0, 0, 250]})
+    return ("200 OK", [], [json.dumps(resp)])
+
+@web_app.route("/api/night", methods=["GET"])
+def night(_):
+    resp = _set_pixels({"rgb": [245, 0, 0]})
+    return ("200 OK", [], [json.dumps(resp)])
+
+@web_app.route("/api/off", methods=["GET"])
+def off(_):
+    resp = _set_pixels({"rgb": [0, 0, 0]})
+    return ("200 OK", [], [json.dumps(resp)])
+
 while True:  # main loop
     wsgi_server.update_poll()
     # Maintain DHCP lease
